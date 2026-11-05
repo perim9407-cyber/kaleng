@@ -1,14 +1,15 @@
-import { CanData, CanThemeConfig, CanThemeId } from '../types';
+import { CanData, CanThemeConfig, CanThemeId, SoundSourceType } from '../types';
 
 export const CAN_THEMES: Record<CanThemeId, CanThemeConfig> = {
-  tuna: {
-    id: 'tuna',
-    name: 'Tuna Can',
-    labelColor: '#6B7E96',
+  apple: {
+    id: 'apple',
+    name: 'Apple / For You',
+    labelColor: '#178F56',
     stripeColor: '#F5BA42',
-    textColor: '#1E293B',
-    tagline: 'Ocean White Tuna',
-    description: 'Silver-blue can with retro tuna fish illustration and yellow stripe.',
+    textColor: '#14532D',
+    tagline: 'Sweet Honeycrisp Apple',
+    emoji: '🍏',
+    description: 'Classic emerald green can with red fruit and warm gold banner.',
   },
   tomatoes: {
     id: 'tomatoes',
@@ -17,16 +18,68 @@ export const CAN_THEMES: Record<CanThemeId, CanThemeConfig> = {
     stripeColor: '#DC2626',
     textColor: '#78350F',
     tagline: 'San Marzano Ripe Tomatoes',
+    emoji: '🍅',
     description: 'Golden yellow harvest can with three juicy red tomatoes.',
   },
-  apple: {
-    id: 'apple',
-    name: 'Apple / For You',
-    labelColor: '#178F56',
+  tuna: {
+    id: 'tuna',
+    name: 'Tuna Can',
+    labelColor: '#6B7E96',
     stripeColor: '#F5BA42',
-    textColor: '#14532D',
-    tagline: 'Sweet Honeycrisp Apple',
-    description: 'Classic emerald green can with red fruit and warm gold banner.',
+    textColor: '#1E293B',
+    tagline: 'Ocean White Tuna',
+    emoji: '🐟',
+    description: 'Silver-blue can with retro tuna fish illustration and yellow stripe.',
+  },
+  peaches: {
+    id: 'peaches',
+    name: 'Sweet Peaches',
+    labelColor: '#F97316',
+    stripeColor: '#FEF08A',
+    textColor: '#7C2D12',
+    tagline: 'Golden Peaches in Syrup',
+    emoji: '🍑',
+    description: 'Warm apricot coral can with sliced sun-ripened orchard peaches.',
+  },
+  strawberry: {
+    id: 'strawberry',
+    name: 'Wild Strawberry',
+    labelColor: '#E11D48',
+    stripeColor: '#FEE2E2',
+    textColor: '#881337',
+    tagline: 'Sweet Berry Garden',
+    emoji: '🍓',
+    description: 'Cozy berry pink can with ripe red strawberries and blooming petals.',
+  },
+  coffee: {
+    id: 'coffee',
+    name: 'Morning Coffee',
+    labelColor: '#78350F',
+    stripeColor: '#F59E0B',
+    textColor: '#451A03',
+    tagline: 'Roastery Espresso Hum',
+    emoji: '☕',
+    description: 'Warm mocha brown can with cozy porcelain mug and heart latte art.',
+  },
+  midnight: {
+    id: 'midnight',
+    name: 'Midnight Star',
+    labelColor: '#312E81',
+    stripeColor: '#FDE047',
+    textColor: '#1E1B4B',
+    tagline: 'Starlit Nocturne',
+    emoji: '🌙',
+    description: 'Deep navy-indigo can with golden crescent moon and twinkling stars.',
+  },
+  sardines: {
+    id: 'sardines',
+    name: 'Lisbon Sardines',
+    labelColor: '#1E3A8A',
+    stripeColor: '#D97706',
+    textColor: '#172554',
+    tagline: 'Marinhas Lusitanas',
+    emoji: '🥫',
+    description: 'Vintage royal navy tin with two silver sardines and olive branch.',
   },
 };
 
@@ -69,8 +122,6 @@ export const AMBIENT_SOUND_OPTIONS = [
   { id: 'warm_vinyl', name: 'Vintage Vinyl Crackle', icon: 'Disc', desc: 'Warm 33rpm analog needle dust' },
   { id: 'music_box', name: 'Antique Music Box', icon: 'Music', desc: 'Lullaby chime melody from a brass key' },
   { id: 'summer_crickets', name: 'Midnight Crickets', icon: 'Moon', desc: 'Serene summer twilight breeze' },
-  { id: 'custom_voice', name: 'Microphone Voice Note', icon: 'Mic', desc: 'Record 10 seconds of your voice or environment' },
-  { id: 'none', name: 'Silent / No Audio', icon: 'VolumeX', desc: 'Just words and the photo' },
 ];
 
 export const STAMP_OPTIONS = [
@@ -81,6 +132,27 @@ export const STAMP_OPTIONS = [
   { id: 'botanical', label: 'Botanical Leaf' },
   { id: 'star', label: 'Golden Star' },
 ];
+
+/**
+ * Extract YouTube Video ID from any YouTube URL (watch, shorts, youtu.be, embed)
+ */
+export function extractYouTubeId(url: string): string | null {
+  if (!url) return null;
+  const cleanUrl = url.trim();
+  
+  // youtu.be/ID
+  const shortMatch = cleanUrl.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
+  if (shortMatch) return shortMatch[1];
+
+  // youtube.com/watch?v=ID or youtube.com/embed/ID or youtube.com/shorts/ID
+  const standardMatch = cleanUrl.match(/(?:youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/))([a-zA-Z0-9_-]{11})/);
+  if (standardMatch) return standardMatch[1];
+
+  // Bare 11-char ID
+  if (/^[a-zA-Z0-9_-]{11}$/.test(cleanUrl)) return cleanUrl;
+
+  return null;
+}
 
 export const DEFAULT_CAN_DATA: CanData = {
   id: 'cl-sample-01',
@@ -95,6 +167,7 @@ Whenever you open this, I hope it brings a quiet smile to your face. Keep this s
   stampId: 'wax_heart',
   photoUrl: '/src/assets/images/polaroid_memory_cafe_1793894881798.jpg',
   photoCaption: 'A quiet morning just for you.',
+  soundSource: 'ambient',
   soundId: 'cozy_cafe',
   soundTitle: 'Quiet Corner Cafe',
   createdAt: Date.now(),
@@ -107,6 +180,12 @@ Whenever you open this, I hope it brings a quiet smile to your face. Keep this s
  */
 export function encodeCanToHash(can: CanData): string {
   try {
+    const compactPhotos = (can.photos || []).map((p) => ({
+      i: p.id,
+      u: p.url.startsWith('data:') && p.url.length > 5000 ? '' : p.url,
+      c: p.caption || '',
+    }));
+
     const compactObj = {
       i: can.id,
       t: can.themeId,
@@ -116,10 +195,14 @@ export function encodeCanToHash(can: CanData): string {
       m: can.message,
       fn: can.fontStyle,
       s: can.stampId,
-      p: can.photoUrl.startsWith('data:') ? '' : can.photoUrl,
+      p: can.photoUrl.startsWith('data:') && can.photoUrl.length > 5000 ? '' : can.photoUrl,
       pc: can.photoCaption || '',
-      snd: can.soundId,
+      pts: compactPhotos,
+      ss: can.soundSource,
+      snd: can.soundId || 'none',
       st: can.soundTitle || '',
+      yu: can.youtubeUrl || '',
+      yi: can.youtubeId || '',
       c: can.createdAt,
       sl: can.shelfLifeDays,
       l: can.location || '',
@@ -145,19 +228,36 @@ export function decodeCanFromHash(hashStr: string): CanData | null {
     const json = decodeURIComponent(atob(clean));
     const obj = JSON.parse(json);
 
+    const themeId: CanThemeId = CAN_THEMES[obj.t as CanThemeId] ? (obj.t as CanThemeId) : 'apple';
+
+    // If previously saved in pantry locally, recover full rich data including high-res local photos
+    const pantryCans = getPantryCans();
+    const existingInPantry = pantryCans.find((c) => c.id === obj.i);
+
+    const decodedPhotos = (obj.pts || []).map((p: { i: string; u: string; c: string }) => ({
+      id: p.i,
+      url: p.u || obj.p || '',
+      caption: p.c || '',
+    }));
+
     return {
       id: obj.i || `can-${Date.now()}`,
-      themeId: obj.t === 'tuna' || obj.t === 'tomatoes' ? obj.t : 'apple',
+      themeId,
       title: obj.ttl || 'for you',
       to: obj.to || '',
       from: obj.f || '',
       message: obj.m || '',
       fontStyle: obj.fn || 'handwriting',
       stampId: obj.s || 'wax_heart',
-      photoUrl: obj.p || '/src/assets/images/polaroid_memory_cafe_1793894881798.jpg',
-      photoCaption: obj.pc || '',
-      soundId: obj.snd || 'cozy_cafe',
+      photoUrl: existingInPantry?.photoUrl || obj.p || (decodedPhotos[0]?.url || ''),
+      photoCaption: obj.pc || existingInPantry?.photoCaption || '',
+      photos: existingInPantry?.photos || (decodedPhotos.length > 0 ? decodedPhotos : undefined),
+      soundSource: (obj.ss as SoundSourceType) || (obj.yi ? 'youtube' : obj.snd !== 'none' ? 'ambient' : 'none'),
+      soundId: obj.snd || 'none',
       soundTitle: obj.st || '',
+      youtubeUrl: obj.yu || '',
+      youtubeId: obj.yi || '',
+      soundDataUrl: existingInPantry?.soundDataUrl,
       createdAt: obj.c || Date.now(),
       shelfLifeDays: obj.sl || 10,
       location: obj.l || '',
@@ -171,7 +271,7 @@ export function decodeCanFromHash(hashStr: string): CanData | null {
 /**
  * Pantry local storage helpers
  */
-const PANTRY_STORAGE_KEY = 'canned_letter_pantry_v2';
+const PANTRY_STORAGE_KEY = 'canned_letter_pantry_v3';
 
 export function getPantryCans(): CanData[] {
   try {

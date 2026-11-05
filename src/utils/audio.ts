@@ -182,6 +182,103 @@ export function playCanOpenPop() {
   }
 }
 
+/**
+ * Play authentic canning machine seaming & crimping sound
+ */
+export function playCanSealingSound() {
+  try {
+    const ctx = getAudioContext();
+    const now = ctx.currentTime;
+
+    // 1. Heavy metallic press down
+    const clankOsc = ctx.createOscillator();
+    const clankGain = ctx.createGain();
+    clankOsc.type = 'triangle';
+    clankOsc.frequency.setValueAtTime(320, now);
+    clankOsc.frequency.exponentialRampToValueAtTime(80, now + 0.2);
+
+    clankGain.gain.setValueAtTime(0.35, now);
+    clankGain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+    clankOsc.connect(clankGain);
+    clankGain.connect(ctx.destination);
+    clankOsc.start(now);
+    clankOsc.stop(now + 0.22);
+
+    // 2. Mechanical rotary crimping whirr (can seam rollers spinning around rim)
+    const bufferSize = ctx.sampleRate * 0.55;
+    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+    const noiseSource = ctx.createBufferSource();
+    noiseSource.buffer = noiseBuffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(1100, now + 0.1);
+    filter.frequency.linearRampToValueAtTime(2400, now + 0.35);
+    filter.frequency.linearRampToValueAtTime(800, now + 0.6);
+    filter.Q.value = 3.5;
+
+    const noiseGain = ctx.createGain();
+    noiseGain.gain.setValueAtTime(0.001, now);
+    noiseGain.gain.linearRampToValueAtTime(0.22, now + 0.15);
+    noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
+
+    noiseSource.connect(filter);
+    filter.connect(noiseGain);
+    noiseGain.connect(ctx.destination);
+
+    noiseSource.start(now + 0.1);
+    noiseSource.stop(now + 0.65);
+
+    // 3. Pressure lock "click-snap"
+    const snapOsc = ctx.createOscillator();
+    const snapGain = ctx.createGain();
+    snapOsc.type = 'sine';
+    snapOsc.frequency.setValueAtTime(1200, now + 0.5);
+    snapOsc.frequency.exponentialRampToValueAtTime(300, now + 0.6);
+    snapGain.gain.setValueAtTime(0.2, now + 0.5);
+    snapGain.gain.exponentialRampToValueAtTime(0.001, now + 0.62);
+
+    snapOsc.connect(snapGain);
+    snapGain.connect(ctx.destination);
+    snapOsc.start(now + 0.5);
+    snapOsc.stop(now + 0.62);
+  } catch (e) {
+    console.error('Sealing sound error', e);
+  }
+}
+
+/**
+ * Play date ink-stamp impact thump
+ */
+export function playStampSound() {
+  try {
+    const ctx = getAudioContext();
+    const now = ctx.currentTime;
+
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(160, now);
+    osc.frequency.exponentialRampToValueAtTime(40, now + 0.14);
+
+    gain.gain.setValueAtTime(0.4, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.15);
+  } catch (e) {
+    console.error('Stamp sound error', e);
+  }
+}
+
 // Global active ambient sound state
 let activeAmbientStop: (() => void) | null = null;
 let currentVoiceAudio: HTMLAudioElement | null = null;
@@ -197,8 +294,8 @@ export function playAmbientSound(soundId: AmbientSoundId, voiceDataUrl?: string,
     return () => {};
   }
 
-  // Handle recorded voice note
-  if (soundId === 'custom_voice' && voiceDataUrl) {
+  // Handle custom audio / voice note
+  if (voiceDataUrl) {
     try {
       const audio = new Audio(voiceDataUrl);
       currentVoiceAudio = audio;
