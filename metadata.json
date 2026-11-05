@@ -1,0 +1,6 @@
+{
+  "name": "Canned Letter",
+  "description": "Seal a heartfelt letter, a nostalgic photo, and ambient sound into an interactive vintage tin can.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
