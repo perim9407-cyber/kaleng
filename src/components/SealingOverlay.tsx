@@ -100,25 +100,25 @@ export const SealingOverlay: React.FC<SealingOverlayProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 select-none">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 select-none">
       <motion.div
         initial={{ opacity: 0, scale: 0.94 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.96 }}
-        className="relative w-full max-w-lg bg-[#FAF7F2] rounded-3xl border-3 border-[#2D2D2D] p-6 sm:p-8 flex flex-col items-center shadow-2xl text-stone-900 overflow-hidden"
+        className="relative w-full max-w-lg bg-[#FAF7F2] rounded-3xl border-3 border-[#2D2D2D] p-4 sm:p-7 flex flex-col items-center shadow-2xl text-stone-900 max-h-[92vh] overflow-y-auto"
       >
         {/* Subtle background machinery grid pattern */}
         <div className="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:16px_16px]" />
 
         {/* Realistic Status Header */}
-        <div className="mb-4">
-          <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border-2 border-[#2D2D2D] shadow-xs text-xs font-bold text-stone-800">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#16A34A] animate-ping" />
-            <span>
-              {stage === 0 && '📥 Menyelipkan surat ke dalam rongga kaleng...'}
+        <div className="mb-3 max-w-full">
+          <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white border-2 border-[#2D2D2D] shadow-xs text-[11px] sm:text-xs font-bold text-stone-800 text-center">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#16A34A] animate-ping shrink-0" />
+            <span className="truncate sm:whitespace-normal">
+              {stage === 0 && '📥 Menyelipkan surat ke dalam kaleng...'}
               {stage === 1 && '⚙️ Menempatkan tutup metal ke bibir kaleng...'}
-              {stage === 2 && '🔒 Merapatkan bibir kaleng kedap udara (Seaming)...'}
-              {stage === 3 && '🏷️ Menstempel tanggal pembuatan di atas tutup...'}
+              {stage === 2 && '🔒 Merapatkan bibir kaleng kedap udara...'}
+              {stage === 3 && '🏷️ Menstempel tanggal pembuatan di tutup...'}
               {stage === 4 && '✨ Kaleng kedap udara! Siap dikirim!'}
             </span>
           </div>
@@ -127,7 +127,7 @@ export const SealingOverlay: React.FC<SealingOverlayProps> = ({
         {/* ========================================================= */}
         {/* CENTER STAGE: THE EXACT REALISTIC CYLINDER CAN (IMAGE C787) */}
         {/* ========================================================= */}
-        <div className="relative w-[300px] sm:w-[320px] h-[360px] sm:h-[390px] flex items-center justify-center overflow-visible my-2">
+        <div className="relative w-[220px] min-[360px]:w-[260px] sm:w-[300px] md:w-[320px] h-[275px] min-[360px]:h-[325px] sm:h-[375px] md:h-[390px] flex items-center justify-center overflow-visible my-1 sm:my-2">
           <svg
             viewBox="0 0 320 400"
             className="w-full h-full overflow-visible drop-shadow-[0_14px_28px_rgba(0,0,0,0.14)]"

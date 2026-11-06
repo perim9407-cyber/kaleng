@@ -98,7 +98,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
         </div>
 
         {/* Content */}
-        <div className="p-5 sm:p-6 space-y-5">
+        <div className="p-4 sm:p-6 space-y-4 sm:space-y-5 max-h-[85vh] overflow-y-auto">
           <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
             Your heartfelt message, photo, and ambient sound note have been packed into the vintage tin. Send this link—they will get to pull the metal tab and peel the lid open!
           </p>
@@ -113,11 +113,11 @@ export const ShareModal: React.FC<ShareModalProps> = ({
                 type="text"
                 readOnly
                 value={shareUrl}
-                className="flex-1 bg-white border border-stone-300 rounded-lg px-3 py-2 text-xs font-mono text-stone-700 truncate shadow-xs focus:outline-none"
+                className="flex-1 bg-white border border-stone-300 rounded-lg px-3 py-2 text-base sm:text-xs font-mono text-stone-700 truncate shadow-xs focus:outline-none"
               />
               <button
                 onClick={handleCopy}
-                className="shrink-0 px-4 py-2 bg-stone-900 hover:bg-stone-800 text-white text-xs font-medium rounded-lg shadow-sm transition-colors flex items-center gap-1.5"
+                className="shrink-0 px-4 py-2 bg-stone-900 hover:bg-black text-white text-xs font-medium rounded-lg shadow-sm transition-colors flex items-center gap-1.5 min-h-[40px] cursor-pointer"
               >
                 {copied ? (
                   <>
@@ -140,7 +140,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="py-2.5 px-3 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] text-xs font-medium rounded-lg text-center transition-colors flex items-center justify-center gap-1.5 border border-[#25D366]/20"
+              className="min-h-[44px] py-2.5 px-2 sm:px-3 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] text-xs font-medium rounded-lg text-center transition-colors flex items-center justify-center gap-1.5 border border-[#25D366]/20"
             >
               <span>WhatsApp</span>
             </a>
@@ -148,16 +148,16 @@ export const ShareModal: React.FC<ShareModalProps> = ({
               href={telegramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="py-2.5 px-3 bg-[#0088cc]/10 hover:bg-[#0088cc]/20 text-[#0088cc] text-xs font-medium rounded-lg text-center transition-colors flex items-center justify-center gap-1.5 border border-[#0088cc]/20"
+              className="min-h-[44px] py-2.5 px-2 sm:px-3 bg-[#0088cc]/10 hover:bg-[#0088cc]/20 text-[#0088cc] text-xs font-medium rounded-lg text-center transition-colors flex items-center justify-center gap-1.5 border border-[#0088cc]/20"
             >
               <span>Telegram</span>
             </a>
             <button
               onClick={() => setShowQr(!showQr)}
-              className="py-2.5 px-3 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-medium rounded-lg text-center transition-colors flex items-center justify-center gap-1.5 border border-stone-200"
+              className="min-h-[44px] py-2.5 px-2 sm:px-3 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-medium rounded-lg text-center transition-colors flex items-center justify-center gap-1.5 border border-stone-200 cursor-pointer"
             >
               <QrCode className="w-3.5 h-3.5" />
-              <span>{showQr ? 'Hide QR' : 'QR Code'}</span>
+              <span>{showQr ? 'Hide' : 'QR Code'}</span>
             </button>
           </div>
 

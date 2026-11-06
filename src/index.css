@@ -15,6 +15,23 @@
   }
 }
 
+/* Mobile & Touch responsiveness enhancements */
+html, body {
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
+}
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
 /* Tin metallic and paper textures */
 .tin-metal-sheen {
   background: linear-gradient(135deg, 

@@ -275,14 +275,14 @@ export const CanUnsealView: React.FC<CanUnsealViewProps> = ({ can, onMakeOwn, on
                     )}
 
                     {/* Main Featured Polaroid with Animated Spring */}
-                    <div className="relative flex items-center justify-center">
+                    <div className="relative flex items-center justify-center max-w-full">
                       
                       {/* Left Navigation Arrow */}
                       {photosList.length > 1 && (
                         <button
                           type="button"
                           onClick={() => setActivePhotoIdx((prev) => (prev > 0 ? prev - 1 : photosList.length - 1))}
-                          className="absolute -left-4 sm:-left-8 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FAF7F2] border-2 border-[#2D2D2D] shadow-md flex items-center justify-center text-stone-800 hover:bg-white hover:scale-110 active:scale-95 transition-all cursor-pointer"
+                          className="absolute -left-2 min-[380px]:-left-4 sm:-left-8 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FAF7F2] border-2 border-[#2D2D2D] shadow-md flex items-center justify-center text-stone-800 hover:bg-white hover:scale-110 active:scale-95 transition-all cursor-pointer min-h-[32px] min-w-[32px]"
                           title="Foto sebelumnya"
                         >
                           <ChevronLeft className="w-5 h-5" />
@@ -292,12 +292,12 @@ export const CanUnsealView: React.FC<CanUnsealViewProps> = ({ can, onMakeOwn, on
                       {/* Stack layer background effects for depth */}
                       {photosList.length > 1 && (
                         <div 
-                          className="absolute inset-0 max-w-xs w-64 sm:w-72 h-80 bg-white/70 rounded-2xl border-2 border-[#2D2D2D]/40 shadow-sm pointer-events-none transform rotate-3 scale-95" 
+                          className="absolute inset-0 max-w-xs w-56 min-[380px]:w-64 sm:w-72 h-72 sm:h-80 bg-white/70 rounded-2xl border-2 border-[#2D2D2D]/40 shadow-sm pointer-events-none transform rotate-3 scale-95" 
                         />
                       )}
                       {photosList.length > 2 && (
                         <div 
-                          className="absolute inset-0 max-w-xs w-64 sm:w-72 h-80 bg-white/50 rounded-2xl border-2 border-[#2D2D2D]/20 shadow-sm pointer-events-none transform -rotate-3 scale-90" 
+                          className="absolute inset-0 max-w-xs w-56 min-[380px]:w-64 sm:w-72 h-72 sm:h-80 bg-white/50 rounded-2xl border-2 border-[#2D2D2D]/20 shadow-sm pointer-events-none transform -rotate-3 scale-90" 
                         />
                       )}
 
@@ -310,7 +310,7 @@ export const CanUnsealView: React.FC<CanUnsealViewProps> = ({ can, onMakeOwn, on
                           exit={{ scale: 0.9, opacity: 0 }}
                           transition={{ type: 'spring', stiffness: 280, damping: 22 }}
                           onClick={() => setLightboxIdx(activePhotoIdx)}
-                          className="relative z-10 cursor-pointer bg-white p-3.5 pb-4 rounded-2xl border-2 border-[#2D2D2D] shadow-lg max-w-xs w-64 sm:w-72 hover:scale-105 transition-all group"
+                          className="relative z-10 cursor-pointer bg-white p-3 sm:p-3.5 pb-3.5 sm:pb-4 rounded-2xl border-2 border-[#2D2D2D] shadow-lg max-w-[85vw] w-56 min-[380px]:w-64 sm:w-72 hover:scale-105 transition-all group"
                         >
                           <div className="w-full aspect-square rounded-xl overflow-hidden border border-stone-200 bg-stone-100 relative">
                             <img
@@ -324,11 +324,11 @@ export const CanUnsealView: React.FC<CanUnsealViewProps> = ({ can, onMakeOwn, on
                           </div>
 
                           {photosList[activePhotoIdx]?.caption ? (
-                            <p className="text-center font-handwriting text-2xl text-stone-800 mt-3 px-1 leading-snug">
+                            <p className="text-center font-handwriting text-xl sm:text-2xl text-stone-800 mt-2.5 sm:mt-3 px-1 leading-snug">
                               {photosList[activePhotoIdx]?.caption}
                             </p>
                           ) : (
-                            <p className="text-center font-mono text-[11px] text-stone-400 mt-2">
+                            <p className="text-center font-mono text-[10px] sm:text-[11px] text-stone-400 mt-2">
                               (Sentuh foto untuk memperbesar)
                             </p>
                           )}
@@ -340,7 +340,7 @@ export const CanUnsealView: React.FC<CanUnsealViewProps> = ({ can, onMakeOwn, on
                         <button
                           type="button"
                           onClick={() => setActivePhotoIdx((prev) => (prev < photosList.length - 1 ? prev + 1 : 0))}
-                          className="absolute -right-4 sm:-right-8 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FAF7F2] border-2 border-[#2D2D2D] shadow-md flex items-center justify-center text-stone-800 hover:bg-white hover:scale-110 active:scale-95 transition-all cursor-pointer"
+                          className="absolute -right-2 min-[380px]:-right-4 sm:-right-8 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FAF7F2] border-2 border-[#2D2D2D] shadow-md flex items-center justify-center text-stone-800 hover:bg-white hover:scale-110 active:scale-95 transition-all cursor-pointer min-h-[32px] min-w-[32px]"
                           title="Foto berikutnya"
                         >
                           <ChevronRight className="w-5 h-5" />
@@ -350,7 +350,7 @@ export const CanUnsealView: React.FC<CanUnsealViewProps> = ({ can, onMakeOwn, on
 
                     {/* Thumbnail Strip (if multiple photos) */}
                     {photosList.length > 1 && (
-                      <div className="flex items-center gap-2 mt-4 overflow-x-auto max-w-xs sm:max-w-md py-1 px-2 scrollbar-thin">
+                      <div className="flex items-center gap-2 mt-4 overflow-x-auto max-w-[85vw] sm:max-w-md py-1 px-2 scrollbar-thin">
                         {photosList.map((photo, i) => {
                           const isActive = i === activePhotoIdx;
                           return (
@@ -358,7 +358,7 @@ export const CanUnsealView: React.FC<CanUnsealViewProps> = ({ can, onMakeOwn, on
                               key={photo.id || i}
                               type="button"
                               onClick={() => setActivePhotoIdx(i)}
-                              className={`shrink-0 w-12 h-14 bg-white p-1 rounded-lg border-2 transition-all cursor-pointer ${
+                              className={`shrink-0 w-11 sm:w-12 h-13 sm:h-14 bg-white p-1 rounded-lg border-2 transition-all cursor-pointer ${
                                 isActive
                                   ? 'border-[#16A34A] scale-110 shadow-md ring-2 ring-[#16A34A]/30'
                                   : 'border-[#2D2D2D]/30 opacity-70 hover:opacity-100 hover:border-[#2D2D2D]'
@@ -367,7 +367,7 @@ export const CanUnsealView: React.FC<CanUnsealViewProps> = ({ can, onMakeOwn, on
                               <img
                                 src={photo.url}
                                 alt={`Thumb ${i + 1}`}
-                                className="w-full h-9 object-cover rounded-sm"
+                                className="w-full h-8 sm:h-9 object-cover rounded-sm"
                               />
                               <span className="text-[9px] font-mono font-bold block text-center text-stone-600 mt-0.5">
                                 #{i + 1}
@@ -382,24 +382,24 @@ export const CanUnsealView: React.FC<CanUnsealViewProps> = ({ can, onMakeOwn, on
                 )}
 
                 {/* Message Body */}
-                <div className="font-handwriting text-2xl sm:text-3xl leading-relaxed text-stone-800 whitespace-pre-wrap min-h-[120px]">
+                <div className="font-handwriting text-xl min-[380px]:text-2xl sm:text-3xl leading-relaxed text-stone-800 whitespace-pre-wrap min-h-[100px] sm:min-h-[120px]">
                   {can.message}
                 </div>
 
                 {/* Sign-off */}
-                <div className="mt-8 pt-4 border-t border-stone-300 flex items-center justify-between text-xs text-stone-500 font-mono">
+                <div className="mt-6 sm:mt-8 pt-4 border-t border-stone-300 flex items-center justify-between text-xs text-stone-500 font-mono">
                   <span>Preserved fresh in tin</span>
-                  <span className="font-bold text-stone-800 text-sm font-handwriting text-2xl">
+                  <span className="font-bold text-stone-800 text-lg sm:text-2xl font-handwriting">
                     from {can.from || 'someone'}
                   </span>
                 </div>
               </div>
 
-              {/* Action Buttons Below Letter */}
-              <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
+              {/* Action Buttons Below Letter (Responsive grid / wrap) */}
+              <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-2.5 sm:gap-3 pt-3 sm:pt-4">
                 <button
                   onClick={onMakeOwn}
-                  className="px-5 py-3 bg-[#2D2D2D] hover:bg-black text-[#FAF7F2] font-bold text-xs sm:text-sm rounded-full shadow-md transition-colors flex items-center gap-2 cursor-pointer"
+                  className="w-full sm:w-auto min-h-[44px] px-5 py-2.5 sm:py-3 bg-[#2D2D2D] hover:bg-black text-[#FAF7F2] font-bold text-xs sm:text-sm rounded-full shadow-md transition-colors flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <PlusCircle className="w-4 h-4 text-emerald-400" />
                   <span>Make your own Canned Letter</span>
@@ -407,7 +407,7 @@ export const CanUnsealView: React.FC<CanUnsealViewProps> = ({ can, onMakeOwn, on
 
                 <button
                   onClick={onShare}
-                  className="px-4 py-3 bg-[#FAF7F2] hover:bg-white text-stone-800 font-bold text-xs sm:text-sm rounded-full border-2 border-[#2D2D2D] shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
+                  className="w-full sm:w-auto min-h-[44px] px-4 py-2.5 sm:py-3 bg-[#FAF7F2] hover:bg-white text-stone-800 font-bold text-xs sm:text-sm rounded-full border-2 border-[#2D2D2D] shadow-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Share2 className="w-4 h-4" />
                   <span>Share</span>
@@ -415,7 +415,7 @@ export const CanUnsealView: React.FC<CanUnsealViewProps> = ({ can, onMakeOwn, on
 
                 <button
                   onClick={handleReseal}
-                  className="px-4 py-3 bg-[#FAF7F2] hover:bg-white text-stone-800 font-bold text-xs sm:text-sm rounded-full border-2 border-[#2D2D2D] shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
+                  className="w-full sm:w-auto min-h-[44px] px-4 py-2.5 sm:py-3 bg-[#FAF7F2] hover:bg-white text-stone-800 font-bold text-xs sm:text-sm rounded-full border-2 border-[#2D2D2D] shadow-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
                   title="Tutup kembali kaleng untuk mengulang tarikan tutup"
                 >
                   <RotateCcw className="w-4 h-4 text-amber-600" />
@@ -424,7 +424,7 @@ export const CanUnsealView: React.FC<CanUnsealViewProps> = ({ can, onMakeOwn, on
 
                 <button
                   onClick={handleSaveToPantry}
-                  className="px-4 py-3 bg-[#FAF7F2] hover:bg-white text-stone-800 font-bold text-xs sm:text-sm rounded-full border-2 border-[#2D2D2D] shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
+                  className="w-full sm:w-auto min-h-[44px] px-4 py-2.5 sm:py-3 bg-[#FAF7F2] hover:bg-white text-stone-800 font-bold text-xs sm:text-sm rounded-full border-2 border-[#2D2D2D] shadow-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {isSaved ? (
                     <>

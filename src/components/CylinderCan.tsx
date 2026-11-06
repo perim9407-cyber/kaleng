@@ -73,12 +73,12 @@ export const CylinderCan: React.FC<CylinderCanProps> = ({
       
       {/* Container holding the SVG illustration */}
       <div 
-        className={`relative ${
+        className={`relative max-w-full mx-auto ${
           size === 'mini' 
-            ? 'w-[72px] h-[86px]' 
+            ? 'w-[68px] sm:w-[72px] h-[84px] sm:h-[88px]' 
             : size === 'compact' 
-            ? 'w-[180px] h-[220px]' 
-            : 'w-[280px] sm:w-[320px] h-[350px] sm:h-[400px]'
+            ? 'w-[150px] sm:w-[180px] h-[190px] sm:h-[225px]' 
+            : 'w-[225px] min-[380px]:w-[260px] sm:w-[290px] md:w-[320px] h-[280px] min-[380px]:h-[325px] sm:h-[365px] md:h-[400px]'
         }`}
       >
         <svg

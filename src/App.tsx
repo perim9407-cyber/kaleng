@@ -109,7 +109,7 @@ export default function App() {
             {currentView !== 'create' ? (
               <button
                 onClick={() => setCurrentView('create')}
-                className="px-4 py-2 text-xs font-bold text-[#FAF7F2] bg-[#2D2D2D] hover:bg-black rounded-full shadow-sm transition-colors whitespace-nowrap shrink-0 flex items-center gap-1.5 cursor-pointer"
+                className="px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs font-bold text-[#FAF7F2] bg-[#2D2D2D] hover:bg-black rounded-full shadow-sm transition-colors whitespace-nowrap shrink-0 flex items-center gap-1.5 cursor-pointer min-h-[40px]"
               >
                 <PenTool className="w-3.5 h-3.5 text-yellow-300" />
                 <span>New Can</span>
@@ -117,7 +117,7 @@ export default function App() {
             ) : (
               <button
                 onClick={() => setShowHowItWorks(true)}
-                className="px-3.5 py-1.5 text-xs font-bold text-stone-800 hover:text-black bg-[#FAF7F2] hover:bg-white border-2 border-[#2D2D2D] rounded-full shadow-xs transition-colors whitespace-nowrap shrink-0 flex items-center gap-1 cursor-pointer"
+                className="px-3 sm:px-3.5 py-1.5 text-xs font-bold text-stone-800 hover:text-black bg-[#FAF7F2] hover:bg-white border-2 border-[#2D2D2D] rounded-full shadow-xs transition-colors whitespace-nowrap shrink-0 flex items-center gap-1 cursor-pointer min-h-[40px]"
               >
                 <HelpCircle className="w-3.5 h-3.5 text-stone-600" />
                 <span>Guide</span>
@@ -125,38 +125,10 @@ export default function App() {
             )}
           </div>
         </div>
-
-        {/* Mobile Navigation Bar */}
-        <div className="flex md:hidden items-center justify-around border-t border-[#2D2D2D]/15 bg-[#D9E5D6]/95 py-2 px-3 text-xs font-bold text-stone-700">
-          <button
-            onClick={() => setCurrentView('create')}
-            className={`px-3 py-1 rounded-full ${currentView === 'create' ? 'text-black bg-[#FAF7F2] border border-[#2D2D2D]' : ''}`}
-          >
-            Create
-          </button>
-          <button
-            onClick={() => setCurrentView('unseal')}
-            className={`px-3 py-1 rounded-full ${currentView === 'unseal' ? 'text-black bg-[#FAF7F2] border border-[#2D2D2D]' : ''}`}
-          >
-            Unseal
-          </button>
-          <button
-            onClick={() => setCurrentView('pantry')}
-            className={`px-3 py-1 rounded-full ${currentView === 'pantry' ? 'text-black bg-[#FAF7F2] border border-[#2D2D2D]' : ''}`}
-          >
-            Pantry
-          </button>
-          <button
-            onClick={() => setShowHowItWorks(true)}
-            className="px-2 py-1 text-stone-600"
-          >
-            Guide
-          </button>
-        </div>
       </header>
 
-      {/* Main Content Area */}
-      <main className="flex-1">
+      {/* Main Content Area (with safe bottom padding for mobile bottom bar) */}
+      <main className="flex-1 pb-24 md:pb-8">
         {currentView === 'create' && (
           <CanCreator
             initialCan={activeCan}
@@ -292,6 +264,58 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Mobile Bottom Thumb Navigation Bar (Ergonomic 48px hitboxes, safe area support) */}
+      <nav 
+        aria-label="Mobile Navigation"
+        className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-md border-t-2 border-[#2D2D2D]/20 pb-safe shadow-[0_-4px_16px_rgba(0,0,0,0.06)]"
+      >
+        <div className="grid grid-cols-4 items-center h-16 px-1">
+          <button
+            onClick={() => setCurrentView('create')}
+            className={`min-h-[48px] flex flex-col items-center justify-center transition-all cursor-pointer ${
+              currentView === 'create'
+                ? 'text-[#16A34A] font-black scale-105'
+                : 'text-stone-600 hover:text-stone-900'
+            }`}
+          >
+            <PenTool className="w-5 h-5 mb-0.5" />
+            <span className="text-[10px] tracking-tight">Can Letter</span>
+          </button>
+
+          <button
+            onClick={() => setCurrentView('unseal')}
+            className={`min-h-[48px] flex flex-col items-center justify-center transition-all cursor-pointer ${
+              currentView === 'unseal'
+                ? 'text-[#16A34A] font-black scale-105'
+                : 'text-stone-600 hover:text-stone-900'
+            }`}
+          >
+            <Sparkles className="w-5 h-5 mb-0.5" />
+            <span className="text-[10px] tracking-tight">Unseal</span>
+          </button>
+
+          <button
+            onClick={() => setCurrentView('pantry')}
+            className={`min-h-[48px] flex flex-col items-center justify-center transition-all cursor-pointer ${
+              currentView === 'pantry'
+                ? 'text-[#16A34A] font-black scale-105'
+                : 'text-stone-600 hover:text-stone-900'
+            }`}
+          >
+            <Package className="w-5 h-5 mb-0.5" />
+            <span className="text-[10px] tracking-tight">Pantry</span>
+          </button>
+
+          <button
+            onClick={() => setShowHowItWorks(true)}
+            className="min-h-[48px] flex flex-col items-center justify-center text-stone-600 hover:text-stone-900 transition-all cursor-pointer"
+          >
+            <HelpCircle className="w-5 h-5 mb-0.5" />
+            <span className="text-[10px] tracking-tight">Guide</span>
+          </button>
+        </div>
+      </nav>
 
     </div>
   );

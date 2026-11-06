@@ -280,13 +280,13 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
   const allThemesList = Object.values(CAN_THEMES);
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-8 sm:py-12">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+    <div className="w-full max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16 items-start">
         
         {/* ========================================================= */}
         {/* LEFT COLUMN: THE REALISTIC CAN (MATCHING USER SCREENSHOT) */}
         {/* ========================================================= */}
-        <div className="lg:col-span-6 flex flex-col items-center justify-center lg:sticky lg:top-24 pt-4 sm:pt-8">
+        <div className="lg:col-span-6 flex flex-col items-center justify-center lg:sticky lg:top-24 pt-2 sm:pt-6">
           <CylinderCan
             can={formData}
             isOpen={true}
@@ -299,12 +299,12 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
         {/* RIGHT COLUMN: THE FORM CONTROLS */}
         {/* ========================================================= */}
         <div className="lg:col-span-6">
-          <form onSubmit={handleSealCan} className="space-y-6">
+          <form onSubmit={handleSealCan} className="space-y-5 sm:space-y-6">
             
             {/* 1. PICK A CAN (VARIED 8 THEMES CAROUSEL) */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="block text-sm font-bold text-stone-800">
+                <label className="block text-xs sm:text-sm font-bold text-stone-800">
                   Pick a can
                 </label>
                 <span className="text-[11px] text-stone-600 font-mono">
@@ -312,15 +312,15 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
                 </span>
               </div>
 
-              {/* Scrollable grid/carousel of 8 cans */}
-              <div className="flex items-center gap-3 overflow-x-auto pb-3 pt-1 px-1 scrollbar-thin">
+              {/* Scrollable grid/carousel of 8 cans with edge bleed on mobile */}
+              <div className="flex items-center gap-2.5 sm:gap-3 overflow-x-auto pb-3 pt-1 px-1 -mx-2 sm:mx-0 scrollbar-thin">
                 {allThemesList.map((t) => {
                   const isSelected = formData.themeId === t.id;
                   return (
                     <div
                       key={t.id}
                       onClick={() => setFormData({ ...formData, themeId: t.id })}
-                      className={`cursor-pointer w-22 sm:w-24 h-28 rounded-2xl p-2 flex flex-col items-center justify-between transition-all bg-[#FAF7F2] shrink-0 ${
+                      className={`cursor-pointer w-20 sm:w-24 h-26 sm:h-28 rounded-2xl p-1.5 sm:p-2 flex flex-col items-center justify-between transition-all bg-[#FAF7F2] shrink-0 ${
                         isSelected
                           ? 'border-[2.5px] border-[#2D2D2D] shadow-md scale-105'
                           : 'border-2 border-[#2D2D2D]/30 hover:border-[#2D2D2D]/60 opacity-80 hover:opacity-100'
@@ -432,7 +432,7 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
                 placeholder="Write your letter here"
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full bg-[#FAF7F2] border-2 border-[#2D2D2D] rounded-2xl p-4 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#1B9356] shadow-xs resize-y"
+                className="w-full bg-[#FAF7F2] border-2 border-[#2D2D2D] rounded-2xl p-3.5 sm:p-4 text-base sm:text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#1B9356] shadow-xs resize-y"
               />
             </div>
 
@@ -447,7 +447,7 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
                 placeholder=""
                 value={formData.from}
                 onChange={(e) => setFormData({ ...formData, from: e.target.value })}
-                className="w-full bg-[#FAF7F2] border-2 border-[#2D2D2D] rounded-full py-3 px-5 text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#1B9356] shadow-xs"
+                className="w-full bg-[#FAF7F2] border-2 border-[#2D2D2D] rounded-full py-2.5 sm:py-3 px-4 sm:px-5 text-base sm:text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#1B9356] shadow-xs"
               />
             </div>
 
@@ -466,7 +466,7 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
               {formData.photos && formData.photos.length > 0 ? (
                 <div className="space-y-3">
                   {/* Horizontal scrolling polaroid strip with animation */}
-                  <div className="flex items-start gap-3 overflow-x-auto pb-3 pt-1 px-1 scrollbar-thin">
+                  <div className="flex items-start gap-3 overflow-x-auto pb-3 pt-1 px-1 -mx-2 sm:mx-0 scrollbar-thin">
                     <AnimatePresence>
                       {formData.photos.map((photo, index) => {
                         const tilts = [-2, 1.5, -1, 2, -1.8, 1.2];
@@ -479,7 +479,7 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.7, opacity: 0, y: -10 }}
                             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-                            className="relative shrink-0 w-36 bg-white p-2.5 pb-2 rounded-xl border-2 border-[#2D2D2D] shadow-md transition-transform hover:scale-105 hover:rotate-0"
+                            className="relative shrink-0 w-32 sm:w-36 bg-white p-2.5 pb-2 rounded-xl border-2 border-[#2D2D2D] shadow-md transition-transform hover:scale-105 hover:rotate-0"
                             style={{ transform: `rotate(${tilt}deg)` }}
                           >
                             {/* Photo Thumbnail */}
@@ -498,7 +498,7 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
                                 placeholder="Add caption..."
                                 value={photo.caption || ''}
                                 onChange={(e) => handleUpdateCaption(photo.id, e.target.value)}
-                                className="w-full text-[11px] font-handwriting text-stone-700 bg-transparent border-b border-stone-200 focus:border-[#2D2D2D] focus:outline-none py-0.5 text-center"
+                                className="w-full text-xs font-handwriting text-stone-700 bg-transparent border-b border-stone-200 focus:border-[#2D2D2D] focus:outline-none py-0.5 text-center"
                               />
                             </div>
 
@@ -511,7 +511,7 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
                             <button
                               type="button"
                               onClick={() => handleRemovePhoto(photo.id)}
-                              className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center shadow-md cursor-pointer transition-transform hover:scale-110"
+                              className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center shadow-md cursor-pointer transition-transform hover:scale-110 min-h-[24px] min-w-[24px]"
                               title="Hapus foto"
                             >
                               <X className="w-3.5 h-3.5" />
@@ -526,12 +526,12 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
                       <button
                         type="button"
                         onClick={() => setShowPhotoModal(true)}
-                        className="shrink-0 w-28 h-40 rounded-xl border-2 border-dashed border-[#2D2D2D]/40 hover:border-[#2D2D2D] bg-[#FAF7F2] hover:bg-white flex flex-col items-center justify-center gap-1.5 transition-colors cursor-pointer text-stone-600 hover:text-black"
+                        className="shrink-0 w-26 sm:w-28 h-36 sm:h-40 rounded-xl border-2 border-dashed border-[#2D2D2D]/40 hover:border-[#2D2D2D] bg-[#FAF7F2] hover:bg-white flex flex-col items-center justify-center gap-1.5 transition-colors cursor-pointer text-stone-600 hover:text-black min-h-[44px]"
                       >
                         <span className="w-7 h-7 rounded-full bg-[#16A34A] text-white flex items-center justify-center font-bold text-sm">
                           +
                         </span>
-                        <span className="text-[11px] font-bold text-center leading-tight">
+                        <span className="text-[10px] sm:text-[11px] font-bold text-center leading-tight">
                           Add Photo<br />({(formData.photos?.length || 0)}/10)
                         </span>
                       </button>
@@ -542,7 +542,7 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
                 <button
                   type="button"
                   onClick={() => setShowPhotoModal(true)}
-                  className="w-full bg-[#FAF7F2] hover:bg-white border-2 border-[#2D2D2D] rounded-full py-2.5 px-4 text-xs font-bold text-stone-800 flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer"
+                  className="w-full bg-[#FAF7F2] hover:bg-white border-2 border-[#2D2D2D] rounded-full py-2.5 px-4 text-xs font-bold text-stone-800 flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer min-h-[44px]"
                 >
                   <span className="w-5 h-5 rounded-full bg-[#16A34A] text-white flex items-center justify-center text-xs font-bold">
                     +
@@ -558,7 +558,7 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
                 type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full py-3.5 px-6 bg-[#2D2D2D] hover:bg-black text-[#FAF7F2] font-bold text-base rounded-full shadow-md transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full min-h-[48px] py-3.5 px-6 bg-[#2D2D2D] hover:bg-black text-[#FAF7F2] font-bold text-sm sm:text-base rounded-full shadow-md transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-yellow-300" />
                 <span>Seal the can</span>
@@ -595,12 +595,12 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
                 </button>
               </div>
 
-              {/* Sound Option Tabs */}
-              <div className="grid grid-cols-4 gap-1 p-1 bg-stone-200/70 rounded-full text-xs font-bold">
+              {/* Sound Option Tabs (2 cols on narrow mobile, 4 cols on wider screens) */}
+              <div className="grid grid-cols-2 min-[460px]:grid-cols-4 gap-1.5 p-1.5 bg-stone-200/70 rounded-2xl min-[460px]:rounded-full text-xs font-bold">
                 <button
                   type="button"
                   onClick={() => setSoundModalTab('upload')}
-                  className={`py-2 px-1 rounded-full transition-colors text-center ${
+                  className={`py-2 px-1.5 rounded-xl min-[460px]:rounded-full transition-colors text-center cursor-pointer min-h-[38px] flex items-center justify-center ${
                     soundModalTab === 'upload' ? 'bg-[#2D2D2D] text-[#FAF7F2]' : 'text-stone-700 hover:text-black'
                   }`}
                 >
@@ -609,7 +609,7 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
                 <button
                   type="button"
                   onClick={() => setSoundModalTab('youtube')}
-                  className={`py-2 px-1 rounded-full transition-colors text-center ${
+                  className={`py-2 px-1.5 rounded-xl min-[460px]:rounded-full transition-colors text-center cursor-pointer min-h-[38px] flex items-center justify-center ${
                     soundModalTab === 'youtube' ? 'bg-[#2D2D2D] text-[#FAF7F2]' : 'text-stone-700 hover:text-black'
                   }`}
                 >
@@ -618,7 +618,7 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
                 <button
                   type="button"
                   onClick={() => setSoundModalTab('voice')}
-                  className={`py-2 px-1 rounded-full transition-colors text-center ${
+                  className={`py-2 px-1.5 rounded-xl min-[460px]:rounded-full transition-colors text-center cursor-pointer min-h-[38px] flex items-center justify-center ${
                     soundModalTab === 'voice' ? 'bg-[#2D2D2D] text-[#FAF7F2]' : 'text-stone-700 hover:text-black'
                   }`}
                 >
@@ -627,7 +627,7 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
                 <button
                   type="button"
                   onClick={() => setSoundModalTab('ambient')}
-                  className={`py-2 px-1 rounded-full transition-colors text-center ${
+                  className={`py-2 px-1.5 rounded-xl min-[460px]:rounded-full transition-colors text-center cursor-pointer min-h-[38px] flex items-center justify-center ${
                     soundModalTab === 'ambient' ? 'bg-[#2D2D2D] text-[#FAF7F2]' : 'text-stone-700 hover:text-black'
                   }`}
                 >
@@ -638,7 +638,7 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
               {/* TAB 1: UPLOAD AUDIO FILE (MP3, WAV, M4A) */}
               {soundModalTab === 'upload' && (
                 <div className="space-y-3 pt-2">
-                  <label className="border-2 border-dashed border-[#2D2D2D]/40 hover:border-[#2D2D2D] rounded-2xl p-6 flex flex-col items-center justify-center cursor-pointer transition-colors bg-white">
+                  <label className="border-2 border-dashed border-[#2D2D2D]/40 hover:border-[#2D2D2D] rounded-2xl p-5 sm:p-6 flex flex-col items-center justify-center cursor-pointer transition-colors bg-white">
                     <FileAudio className="w-8 h-8 text-[#16A34A] mb-2" />
                     <span className="text-xs font-bold text-stone-800">Upload song from your device</span>
                     <span className="text-[10px] text-stone-400 mt-1">MP3, WAV, M4A, OGG, WebM (up to 15MB)</span>
@@ -667,7 +667,7 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
                       placeholder="e.g. https://youtu.be/... or https://www.youtube.com/watch?v=..."
                       value={youtubeInput}
                       onChange={(e) => setYoutubeInput(e.target.value)}
-                      className="w-full bg-white border-2 border-[#2D2D2D] rounded-full py-2.5 px-4 text-xs font-mono text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#1B9356]"
+                      className="w-full bg-white border-2 border-[#2D2D2D] rounded-full py-2.5 px-4 text-base sm:text-xs font-mono text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#1B9356]"
                     />
                     {youtubeError && (
                       <p className="text-[11px] text-red-600 mt-1">{youtubeError}</p>
