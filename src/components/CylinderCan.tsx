@@ -82,7 +82,7 @@ export const CylinderCan: React.FC<CylinderCanProps> = ({
         }`}
       >
         <svg
-          viewBox="0 0 320 400"
+          viewBox="0 -40 320 440"
           className="w-full h-full overflow-visible drop-shadow-[0_10px_20px_rgba(0,0,0,0.1)]"
         >
           {/* DEFINITIONS FOR GRADIENTS AND MASKS */}

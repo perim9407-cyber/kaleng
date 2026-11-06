@@ -307,25 +307,10 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
         </div>
 
         {/* ========================================================= */}
-        {/* RIGHT COLUMN: THE FORM CONTROLS IN BESPOKE STATIONERY CARD */}
+        {/* RIGHT COLUMN: THE FORM CONTROLS (SEAMLESS SAGE PALETTE) */}
         {/* ========================================================= */}
-        <div className="lg:col-span-7 xl:col-span-7">
-          <div className="bg-[#FAF8F5] rounded-3xl border-2 border-[#2D2D2D] p-4 min-[380px]:p-6 sm:p-8 shadow-[0_12px_28px_rgba(0,0,0,0.06)]">
-            <div className="mb-5 pb-3 border-b border-[#2D2D2D]/15 flex items-center justify-between">
-              <div>
-                <h1 className="font-serif text-xl sm:text-2xl font-bold text-stone-900 tracking-tight">
-                  Can a Letter
-                </h1>
-                <p className="text-xs text-stone-600 mt-0.5">
-                  Pack your words, a memory, and ambient sound into an airtight tin.
-                </p>
-              </div>
-              <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-mono font-bold bg-[#D9E5D6] text-stone-800 px-3 py-1 rounded-full border border-[#2D2D2D]/20">
-                🥫 Hermetic Seal
-              </span>
-            </div>
-
-            <form onSubmit={handleSealCan} className="space-y-5 sm:space-y-6">
+        <div className="lg:col-span-7 xl:col-span-7 w-full">
+          <form onSubmit={handleSealCan} className="space-y-5 sm:space-y-6">
             
             {/* 1. PICK A CAN (VARIED 8 THEMES CAROUSEL) */}
             <div>
@@ -354,7 +339,7 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
                     >
                       <CylinderCan
                         can={{ ...formData, themeId: t.id, title: '' }}
-                        isOpen={true}
+                        isOpen={false}
                         interactive={false}
                         size="mini"
                       />
@@ -592,7 +577,6 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
             </div>
 
           </form>
-          </div>
         </div>
       </div>
 

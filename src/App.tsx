@@ -125,10 +125,44 @@ export default function App() {
             )}
           </div>
         </div>
+
+        {/* Mobile Navigation Row (In header, zero bottom obstruction) */}
+        <div className="flex md:hidden items-center justify-around gap-1.5 px-3 py-2 bg-[#D9E5D6]/95 border-t border-[#2D2D2D]/15">
+          <button
+            onClick={() => setCurrentView('create')}
+            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              currentView === 'create'
+                ? 'bg-[#2D2D2D] text-white shadow-xs'
+                : 'bg-[#FAF7F2] text-stone-700 border border-[#2D2D2D]/25'
+            }`}
+          >
+            🥫 Can Letter
+          </button>
+          <button
+            onClick={() => setCurrentView('unseal')}
+            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              currentView === 'unseal'
+                ? 'bg-[#2D2D2D] text-white shadow-xs'
+                : 'bg-[#FAF7F2] text-stone-700 border border-[#2D2D2D]/25'
+            }`}
+          >
+            🔓 Unseal
+          </button>
+          <button
+            onClick={() => setCurrentView('pantry')}
+            className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              currentView === 'pantry'
+                ? 'bg-[#2D2D2D] text-white shadow-xs'
+                : 'bg-[#FAF7F2] text-stone-700 border border-[#2D2D2D]/25'
+            }`}
+          >
+            📦 Pantry
+          </button>
+        </div>
       </header>
 
-      {/* Main Content Area (with safe bottom padding for mobile bottom bar) */}
-      <main className="flex-1 pb-24 md:pb-8">
+      {/* Main Content Area (Clean natural scrolling, zero bottom clipping) */}
+      <main className="flex-1 pb-10 sm:pb-12">
         {currentView === 'create' && (
           <CanCreator
             initialCan={activeCan}
@@ -264,58 +298,6 @@ export default function App() {
           </div>
         </div>
       </footer>
-
-      {/* Mobile Bottom Thumb Navigation Bar (Ergonomic 48px hitboxes, safe area support) */}
-      <nav 
-        aria-label="Mobile Navigation"
-        className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-md border-t-2 border-[#2D2D2D]/20 pb-safe shadow-[0_-4px_16px_rgba(0,0,0,0.06)]"
-      >
-        <div className="grid grid-cols-4 items-center h-16 px-1">
-          <button
-            onClick={() => setCurrentView('create')}
-            className={`min-h-[48px] flex flex-col items-center justify-center transition-all cursor-pointer ${
-              currentView === 'create'
-                ? 'text-[#16A34A] font-black scale-105'
-                : 'text-stone-600 hover:text-stone-900'
-            }`}
-          >
-            <PenTool className="w-5 h-5 mb-0.5" />
-            <span className="text-[10px] tracking-tight">Can Letter</span>
-          </button>
-
-          <button
-            onClick={() => setCurrentView('unseal')}
-            className={`min-h-[48px] flex flex-col items-center justify-center transition-all cursor-pointer ${
-              currentView === 'unseal'
-                ? 'text-[#16A34A] font-black scale-105'
-                : 'text-stone-600 hover:text-stone-900'
-            }`}
-          >
-            <Sparkles className="w-5 h-5 mb-0.5" />
-            <span className="text-[10px] tracking-tight">Unseal</span>
-          </button>
-
-          <button
-            onClick={() => setCurrentView('pantry')}
-            className={`min-h-[48px] flex flex-col items-center justify-center transition-all cursor-pointer ${
-              currentView === 'pantry'
-                ? 'text-[#16A34A] font-black scale-105'
-                : 'text-stone-600 hover:text-stone-900'
-            }`}
-          >
-            <Package className="w-5 h-5 mb-0.5" />
-            <span className="text-[10px] tracking-tight">Pantry</span>
-          </button>
-
-          <button
-            onClick={() => setShowHowItWorks(true)}
-            className="min-h-[48px] flex flex-col items-center justify-center text-stone-600 hover:text-stone-900 transition-all cursor-pointer"
-          >
-            <HelpCircle className="w-5 h-5 mb-0.5" />
-            <span className="text-[10px] tracking-tight">Guide</span>
-          </button>
-        </div>
-      </nav>
 
     </div>
   );
