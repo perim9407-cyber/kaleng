@@ -158,16 +158,20 @@ export const CanUnsealView: React.FC<CanUnsealViewProps> = ({ can, onMakeOwn, on
 
       {/* Tabletop Can Display */}
       <div className="w-full flex flex-col items-center">
-        
-        {/* Realistic Cylindrical Can */}
-        <CylinderCan
-          can={can}
-          isOpen={isOpen}
-          onOpen={handleOpen}
-          interactive={true}
-          onLetterClick={() => setIsReadingLetter(true)}
-          size="normal"
-        />
+        <div className="relative flex flex-col items-center justify-center">
+          {/* Subtle studio back glow on PC */}
+          <div className="absolute inset-0 m-auto w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-white/40 blur-xl pointer-events-none -z-0" />
+
+          {/* Realistic Cylindrical Can */}
+          <CylinderCan
+            can={can}
+            isOpen={isOpen}
+            onOpen={handleOpen}
+            interactive={true}
+            onLetterClick={() => setIsReadingLetter(true)}
+            size="normal"
+          />
+        </div>
 
         {/* Revealed Letter and Contents */}
         <AnimatePresence>
@@ -177,7 +181,7 @@ export const CanUnsealView: React.FC<CanUnsealViewProps> = ({ can, onMakeOwn, on
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="w-full mt-8 sm:mt-12 space-y-6 max-w-2xl"
+              className="w-full mt-6 sm:mt-10 space-y-6 max-w-2xl"
             >
               {/* ========================================================= */}
               {/* YOUTUBE EMBEDDED SOUNDTRACK PLAYER */}
@@ -257,8 +261,17 @@ export const CanUnsealView: React.FC<CanUnsealViewProps> = ({ can, onMakeOwn, on
               {/* ========================================================= */}
               {/* UNFOLDED LETTER CARD & PHOTO */}
               {/* ========================================================= */}
-              <div className="relative bg-[#FAF7F2] border-2 border-[#2D2D2D] rounded-3xl p-6 sm:p-10 shadow-lg text-stone-900">
+              <div className="relative bg-[#FAF7F2] border-2 border-[#2D2D2D] rounded-3xl p-4 min-[380px]:p-6 sm:p-10 shadow-xl text-stone-900">
                 
+                {/* Airmail header & date mark */}
+                <div className="flex items-center justify-between pb-3.5 mb-5 border-b border-stone-200 text-[10px] sm:text-xs font-mono text-stone-500">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-[#16A34A]" />
+                    <span className="font-bold uppercase tracking-wider text-stone-700">Airtight Canned Dispatch</span>
+                  </div>
+                  <span className="font-bold text-stone-800">SEALED: {creationDateStr}</span>
+                </div>
+
                 {/* Multi-Photo Polaroid Deck (up to 10 photos) */}
                 {photosList.length > 0 && (
                   <div className="mb-8 flex flex-col items-center">

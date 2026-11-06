@@ -286,20 +286,46 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
         {/* ========================================================= */}
         {/* LEFT COLUMN: THE REALISTIC CAN (MATCHING USER SCREENSHOT) */}
         {/* ========================================================= */}
-        <div className="lg:col-span-6 flex flex-col items-center justify-center lg:sticky lg:top-24 pt-2 sm:pt-6">
-          <CylinderCan
-            can={formData}
-            isOpen={true}
-            interactive={false}
-            size="normal"
-          />
+        <div className="lg:col-span-5 xl:col-span-5 flex flex-col items-center justify-center lg:sticky lg:top-24 pt-2 sm:pt-4">
+          <div className="relative flex flex-col items-center justify-center w-full max-w-sm">
+            {/* Subtle radial glow on desktop */}
+            <div className="absolute inset-0 m-auto w-60 sm:w-72 lg:w-80 h-60 sm:h-72 lg:h-80 rounded-full bg-white/40 blur-xl pointer-events-none -z-0" />
+
+            <CylinderCan
+              can={formData}
+              isOpen={true}
+              interactive={false}
+              size="normal"
+            />
+
+            {/* Subtle artisan footnote under the tin on desktop */}
+            <div className="mt-3 hidden lg:flex items-center gap-2 text-[11px] font-mono text-stone-600 bg-[#FAF8F5]/90 px-3.5 py-1.5 rounded-full border border-[#2D2D2D]/20 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-[#16A34A] animate-pulse" />
+              <span>320ml Sealed Cavity · Live Tin Preview</span>
+            </div>
+          </div>
         </div>
 
         {/* ========================================================= */}
-        {/* RIGHT COLUMN: THE FORM CONTROLS */}
+        {/* RIGHT COLUMN: THE FORM CONTROLS IN BESPOKE STATIONERY CARD */}
         {/* ========================================================= */}
-        <div className="lg:col-span-6">
-          <form onSubmit={handleSealCan} className="space-y-5 sm:space-y-6">
+        <div className="lg:col-span-7 xl:col-span-7">
+          <div className="bg-[#FAF8F5] rounded-3xl border-2 border-[#2D2D2D] p-4 min-[380px]:p-6 sm:p-8 shadow-[0_12px_28px_rgba(0,0,0,0.06)]">
+            <div className="mb-5 pb-3 border-b border-[#2D2D2D]/15 flex items-center justify-between">
+              <div>
+                <h1 className="font-serif text-xl sm:text-2xl font-bold text-stone-900 tracking-tight">
+                  Can a Letter
+                </h1>
+                <p className="text-xs text-stone-600 mt-0.5">
+                  Pack your words, a memory, and ambient sound into an airtight tin.
+                </p>
+              </div>
+              <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-mono font-bold bg-[#D9E5D6] text-stone-800 px-3 py-1 rounded-full border border-[#2D2D2D]/20">
+                🥫 Hermetic Seal
+              </span>
+            </div>
+
+            <form onSubmit={handleSealCan} className="space-y-5 sm:space-y-6">
             
             {/* 1. PICK A CAN (VARIED 8 THEMES CAROUSEL) */}
             <div>
@@ -566,6 +592,7 @@ export const CanCreator: React.FC<CanCreatorProps> = ({ initialCan, onCanSealed 
             </div>
 
           </form>
+          </div>
         </div>
       </div>
 

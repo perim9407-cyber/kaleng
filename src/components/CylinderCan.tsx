@@ -77,13 +77,13 @@ export const CylinderCan: React.FC<CylinderCanProps> = ({
           size === 'mini' 
             ? 'w-[68px] sm:w-[72px] h-[84px] sm:h-[88px]' 
             : size === 'compact' 
-            ? 'w-[150px] sm:w-[180px] h-[190px] sm:h-[225px]' 
-            : 'w-[225px] min-[380px]:w-[260px] sm:w-[290px] md:w-[320px] h-[280px] min-[380px]:h-[325px] sm:h-[365px] md:h-[400px]'
+            ? 'w-[140px] sm:w-[170px] h-[175px] sm:h-[215px]' 
+            : 'w-[195px] min-[380px]:w-[225px] sm:w-[270px] lg:w-[320px] xl:w-[360px] h-[245px] min-[380px]:h-[280px] sm:h-[340px] lg:h-[400px] xl:h-[450px]'
         }`}
       >
         <svg
           viewBox="0 0 320 400"
-          className="w-full h-full overflow-visible drop-shadow-[0_12px_24px_rgba(0,0,0,0.12)]"
+          className="w-full h-full overflow-visible drop-shadow-[0_10px_20px_rgba(0,0,0,0.1)]"
         >
           {/* DEFINITIONS FOR GRADIENTS AND MASKS */}
           <defs>
@@ -647,6 +647,13 @@ export const CylinderCan: React.FC<CylinderCanProps> = ({
             </motion.g>
           )}
         </svg>
+
+        {/* Studio ground contact shadow */}
+        <div 
+          className={`w-3/4 mx-auto rounded-[100%] bg-stone-900/12 blur-xs pointer-events-none transition-all ${
+            size === 'mini' ? 'h-1 -mt-1' : size === 'compact' ? 'h-2 -mt-1.5' : 'h-3 sm:h-4 -mt-2'
+          }`} 
+        />
       </div>
     </div>
   );
